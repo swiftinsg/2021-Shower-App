@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E5187D3273FA24F00DA3F6E /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5187D2273FA24F00DA3F6E /* CircularProgressView.swift */; };
 		3FD62E02273D522800B8DEF2 /* Shower_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD62E01273D522800B8DEF2 /* Shower_AppApp.swift */; };
 		3FD62E04273D522800B8DEF2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD62E03273D522800B8DEF2 /* ContentView.swift */; };
 		3FD62E06273D522C00B8DEF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FD62E05273D522C00B8DEF2 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E5187D2273FA24F00DA3F6E /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		3FD62DFE273D522800B8DEF2 /* Shower App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shower App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FD62E01273D522800B8DEF2 /* Shower_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shower_AppApp.swift; sourceTree = "<group>"; };
 		3FD62E03273D522800B8DEF2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 			children = (
 				3FD62E01273D522800B8DEF2 /* Shower_AppApp.swift */,
 				3FD62E03273D522800B8DEF2 /* ContentView.swift */,
+				2E5187D2273FA24F00DA3F6E /* CircularProgressView.swift */,
 				3FD62E05273D522C00B8DEF2 /* Assets.xcassets */,
 				3FD62E0A273D522C00B8DEF2 /* Info.plist */,
 				3FD62E07273D522C00B8DEF2 /* Preview Content */,
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FD62E04273D522800B8DEF2 /* ContentView.swift in Sources */,
+				2E5187D3273FA24F00DA3F6E /* CircularProgressView.swift in Sources */,
 				3FD62E02273D522800B8DEF2 /* Shower_AppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
