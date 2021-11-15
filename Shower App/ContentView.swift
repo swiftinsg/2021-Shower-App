@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 let darkBlue = Color(red: 0.3412, green: 0.3922, blue: 0.5647)
 let lightBlue = Color(red: 0.5961, green: 0.7412, blue: 0.7725)
@@ -15,6 +16,9 @@ let white = Color(white: 1)
 
 
 struct ContentView: View {
+    @Environment(\.colorScheme) var colorScheme
+    @State var rate: String = "5"
+    
     @State var countupMinutes: Int = 0
     @State var countupSeconds: Int = 0
     
@@ -33,13 +37,34 @@ struct ContentView: View {
             CircularProgressView(displayText: "\(displayMinutes):\(String(format: "%02d",displaySeconds ))", progress: CGFloat(displayMinutes * 60 + displaySeconds) / CGFloat(5 * 60), overtime: overtime)
                 .frame(width: 300, height: 300)
                 .padding(.all, 100.0)
-            
+            HStack {
+                TextField("",text: $rate)
+                    .font(Font.system(size: 20))
+                    .padding(.all, 15.0)
+                    .background(RoundedRectangle(cornerRadius: 20).fill(steelGray.opacity(0.8)))
+                    .foregroundColor(.black)
+                    .padding(.all, 10.0)
+                    .keyboardType(.numberPad)
+                    .onReceive(Just(rate)) { newValue in
+                        let filtered = newValue.filter { "0123456789".contains($0) }
+                        if filtered != newValue {
+                            self.rate = filtered
+                        }
+                        
+                    }
+                Text("litres / min")
+                    .font(.title2)
+                    .fontWeight(.medium)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(nil)
+                
+            }.padding([.leading, .bottom, .trailing], 80)
             if !started {
                 Button(action:{
                     startTimer()
                 })
                 {
-                    Text("TEST")
+                    Text("START")
                 }
             } else {
                 Button(action:{
@@ -67,9 +92,6 @@ struct ContentView: View {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true)
         { tempTimer in
             if (countdownMinutes == 0 && countdownSeconds == 0) {
-                print(countupMinutes)
-                print(countupSeconds)
-                print("------")
                 if countupSeconds == 59 {
                     countupMinutes += 1
                 } else {

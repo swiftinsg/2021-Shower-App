@@ -8,15 +8,18 @@
 import SwiftUI
 
 struct CircularProgressView: View {
-    
+    @Environment(\.colorScheme) var colorScheme
+
     var displayText : String
     var progress: CGFloat
     var overtime: Bool
     var body: some View {
         ZStack {
             Circle()
-                .stroke(lineWidth: 50)
                 .foregroundColor(lightBlue)
+            Circle()
+                .stroke(lineWidth: 50)
+                .foregroundColor(colorScheme == .dark ? .black : .white)
             
             Text(displayText)
                 .font(.largeTitle)
@@ -26,7 +29,7 @@ struct CircularProgressView: View {
             Circle()
                 .trim(from: 0 , to: progress)
                 .stroke(style: .init(lineWidth: 50,
-                                     lineCap: .round,
+                                     lineCap: .butt,
                                      lineJoin: .round))
                 .foregroundColor(overtime ?  darkRed : darkBlue )
                 .rotationEffect(Angle(degrees: 270))
