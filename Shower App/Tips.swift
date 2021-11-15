@@ -9,6 +9,8 @@ import SwiftUI
 
 struct Tips: View {
     @State private var current_tip = 0
+    
+    
     var tips = ["It is recommended to shower between 5-10 minutes for each shower.",
                 "Showering too much not only waste a lot of water, it will lead to dry skin and hair!",
                 "Cutting back on showers would make you smell or risk having skin infections",
@@ -23,11 +25,18 @@ struct Tips: View {
     
     var body: some View {
         VStack {
+            Text("TIP💡")
+                .font(.largeTitle)
+                .bold()
+                .multilineTextAlignment(.center)
+                .padding()
+            
             Text(tips[current_tip])
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 .bold()
-                .padding()
-                
+                .multilineTextAlignment(.center)
+                .padding(.all, 50)
+
         }
         
     }
