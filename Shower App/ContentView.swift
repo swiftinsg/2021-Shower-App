@@ -39,7 +39,7 @@ struct ContentView: View {
                     startTimer()
                 })
                 {
-                    Text("START")
+                    Text("TEST")
                 }
             } else {
                 Button(action:{
