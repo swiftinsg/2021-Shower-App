@@ -10,7 +10,7 @@ import Combine
 
 let darkBlue = Color(red: 0.3412, green: 0.3922, blue: 0.5647)
 let lightBlue = Color(red: 0.5961, green: 0.7412, blue: 0.7725)
-let steelGray = Color(white: 0.4745)
+let steelGray = Color(white: 0.55)
 let darkRed = Color(red: 0.8, green: 0.0, blue: 0.0)
 let white = Color(white: 1)
 
@@ -32,15 +32,16 @@ struct ContentView: View {
     
     @State var timer: Timer? = nil
     @State var started: Bool = false
-    @State var restarted: Bool = true
+    @State var restarted: Bool = false
     @State var overtime: Bool = false
     
     var body: some View {
         VStack {
+            
             CircularProgressView(displayText: "\(displayMinutes):\(String(format: "%02d",displaySeconds ))", progress: CGFloat(displayMinutes * 60 + displaySeconds) / CGFloat(5 * 60), overtime: overtime)
                 .frame(width: 300, height: 300)
                 .padding(.all, 100.0)
-            
+                .position(x:UIScreen.main.bounds.size.width/2,y: 300)
             
             if !started {
                 
@@ -66,14 +67,16 @@ struct ContentView: View {
                             .multilineTextAlignment(.leading)
                             .lineLimit(nil)
                         
-                    }.padding([.leading, .bottom, .trailing], 80)
+                    }.padding(.bottom, 60.0)
+                    .padding(.horizontal, 80.0)
                 } else {
                     HStack {
                         Text("You spent \(Int(totalTime/60)):\(String(format: "%02d",Int(totalTime%60))) mins showering and used \((Int(rate)! * totalTime)/60) litres of water, that’s equal to")
                             .font(.title)
                             .fontWeight(.semibold)
-                    }.padding(.bottom, 80)
+                    }
                     .padding(.horizontal, 60.0)
+                    .padding(.bottom, 60.0)
                 }
                 
                 Button(action:{
@@ -81,14 +84,29 @@ struct ContentView: View {
                 })
                 {
                     Text("START")
-                }
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                }.padding(.horizontal, 140.0)
+                .padding()
+                .background(lightBlue)
+                .cornerRadius(30)
+                .padding()
+                
             } else {
                 Button(action:{
                     stopTimer()
                 })
                 {
                     Text("STOP")
-                }
+                        .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                }.padding(.horizontal, 140.0)
+                .padding()
+                .background(darkRed)
+                .cornerRadius(30)
+                .padding()
             }
         }
     }

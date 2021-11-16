@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct Tips: View {
-    @State private var current_tip = 0
-    
-    
     var tips = ["It is recommended to shower between 5-10 minutes for each shower.",
                 "Showering too much not only waste a lot of water, it will lead to dry skin and hair!",
                 "Cutting back on showers would make you smell or risk having skin infections",
@@ -22,6 +19,11 @@ struct Tips: View {
                 "Showering from top to bottom let the soap make its way down.",
                 "Focus showering in the dirtiest areas instead of your arms and legs.",
                 "It is better to shower in lukewarm water or cooler water as it is healthier for blood circulation." ]
+    @State private var current_tip : Int = 0
+    
+    init() {
+        current_tip =  Int.random(in: 1..<tips.count)
+        }
     
     var body: some View {
         VStack {
