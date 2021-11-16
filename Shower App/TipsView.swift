@@ -6,24 +6,22 @@
 //
 
 import SwiftUI
+var tips = ["It is recommended to shower between 5-10 minutes for each shower.",
+            "Showering too much not only waste a lot of water, it will lead to dry skin and hair!",
+            "Cutting back on showers would make you smell or risk having skin infections",
+            "Plan your showers! Do up shower schedules based on your activities everyday!",
+            "Your hair needs does not need as much as showering as your body because it is made of dead cells",
+            "If you want to shave, you might want to do it last.",
+            "Don't rub with a towel dry but instead pat yourself with it.",
+            "You might want to apply moisturiser 2-3mins after shower to keep your skin plump.",
+            "Showering from top to bottom let the soap make its way down.",
+            "Focus showering in the dirtiest areas instead of your arms and legs.",
+            "It is better to shower in lukewarm water or cooler water as it is healthier for blood circulation." ]
+
 
 struct Tips: View {
-    var tips = ["It is recommended to shower between 5-10 minutes for each shower.",
-                "Showering too much not only waste a lot of water, it will lead to dry skin and hair!",
-                "Cutting back on showers would make you smell or risk having skin infections",
-                "Plan your showers! Do up shower schedules based on your activities everyday!",
-                "Your hair needs does not need as much as showering as your body because it is made of dead cells",
-                "If you want to shave, you might want to do it last.",
-                "Don't rub with a towel dry but instead pat yourself with it.",
-                "You might want to apply moisturiser 2-3mins after shower to keep your skin plump.",
-                "Showering from top to bottom let the soap make its way down.",
-                "Focus showering in the dirtiest areas instead of your arms and legs.",
-                "It is better to shower in lukewarm water or cooler water as it is healthier for blood circulation." ]
-    @State private var current_tip : Int = 0
+    var current_tip: Int
     
-    init() {
-        current_tip =  Int.random(in: 1..<tips.count)
-        }
     
     var body: some View {
         VStack {
@@ -46,6 +44,6 @@ struct Tips: View {
 
 struct Tips_Previews: PreviewProvider {
     static var previews: some View {
-        Tips()
+        Tips(current_tip: 5)
     }
 }
