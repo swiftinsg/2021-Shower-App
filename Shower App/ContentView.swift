@@ -31,17 +31,28 @@ struct ContentView: View {
     @State var totalTime: Int = 0
     
     @State var timer: Timer? = nil
+    
     @State var started: Bool = false
     @State var restarted: Bool = false
     @State var overtime: Bool = false
     
+    @State private var isModalPresented = false
+    
     var body: some View {
         VStack {
+            Button(action: {isModalPresented = true}, label: {
+                Text("\(Image(systemName: "lightbulb"))")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(lightBlue)
+            })
+            .padding(.leading, 300.0)
+            
             
             CircularProgressView(displayText: "\(displayMinutes):\(String(format: "%02d",displaySeconds ))", progress: CGFloat(displayMinutes * 60 + displaySeconds) / CGFloat(5 * 60), overtime: overtime)
                 .frame(width: 300, height: 300)
                 .padding(.all, 100.0)
-                .position(x:UIScreen.main.bounds.size.width/2,y: 300)
+                .position(x:UIScreen.main.bounds.size.width/2,y: 250)
             
             if !started {
                 
@@ -109,6 +120,10 @@ struct ContentView: View {
                 .padding()
             }
         }
+        .sheet(isPresented: $isModalPresented,
+                       content: {
+                        Tips(current_tip: Int.random(in: 0..<tips.count))
+                })
     }
     
     func startTimer(){
