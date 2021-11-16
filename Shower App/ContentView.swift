@@ -28,8 +28,11 @@ struct ContentView: View {
     @State var displayMinutes: Int = 5
     @State var displaySeconds: Int = 0
     
+    @State var totalTime: Int = 0
+    
     @State var timer: Timer? = nil
     @State var started: Bool = false
+    @State var restarted: Bool = true
     @State var overtime: Bool = false
     
     var body: some View {
@@ -37,29 +40,42 @@ struct ContentView: View {
             CircularProgressView(displayText: "\(displayMinutes):\(String(format: "%02d",displaySeconds ))", progress: CGFloat(displayMinutes * 60 + displaySeconds) / CGFloat(5 * 60), overtime: overtime)
                 .frame(width: 300, height: 300)
                 .padding(.all, 100.0)
-            HStack {
-                TextField("",text: $rate)
-                    .font(Font.system(size: 20))
-                    .padding(.all, 15.0)
-                    .background(RoundedRectangle(cornerRadius: 20).fill(steelGray.opacity(0.8)))
-                    .foregroundColor(.black)
-                    .padding(.all, 10.0)
-                    .keyboardType(.numberPad)
-                    .onReceive(Just(rate)) { newValue in
-                        let filtered = newValue.filter { "0123456789".contains($0) }
-                        if filtered != newValue {
-                            self.rate = filtered
-                        }
-                        
-                    }
-                Text("litres / min")
-                    .font(.title2)
-                    .fontWeight(.medium)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(nil)
-                
-            }.padding([.leading, .bottom, .trailing], 80)
+            
+            
             if !started {
+                
+                if !restarted {
+                    HStack {
+                        TextField("",text: $rate)
+                            .font(Font.system(size: 20))
+                            .padding(.all, 15.0)
+                            .background(RoundedRectangle(cornerRadius: 20).fill(steelGray.opacity(0.8)))
+                            .foregroundColor(.black)
+                            .padding(.all, 10.0)
+                            .keyboardType(.numberPad)
+                            .onReceive(Just(rate)) { newValue in
+                                let filtered = newValue.filter { "0123456789".contains($0) }
+                                if filtered != newValue {
+                                    self.rate = filtered
+                                }
+                                
+                            }
+                        Text("litres / min")
+                            .font(.title2)
+                            .fontWeight(.medium)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(nil)
+                        
+                    }.padding([.leading, .bottom, .trailing], 80)
+                } else {
+                    HStack {
+                        Text("You spent \(Int(totalTime/60)):\(String(format: "%02d",Int(totalTime%60))) mins showering and used \((Int(rate)! * totalTime)/60) litres of water, that’s equal to")
+                            .font(.title)
+                            .fontWeight(.semibold)
+                    }.padding(.bottom, 80)
+                    .padding(.horizontal, 60.0)
+                }
+                
                 Button(action:{
                     startTimer()
                 })
@@ -79,7 +95,7 @@ struct ContentView: View {
     
     func startTimer(){
         started = true
-        
+        restarted = true
         countdownMinutes = 5 // Goal Time
         countdownSeconds = 0
         
@@ -92,6 +108,7 @@ struct ContentView: View {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true)
         { tempTimer in
             if (countdownMinutes == 0 && countdownSeconds == 0) {
+                totalTime = 5 * 60 + countupMinutes * 60 + countupSeconds
                 if countupSeconds == 59 {
                     countupMinutes += 1
                 } else {
@@ -102,6 +119,7 @@ struct ContentView: View {
                 displaySeconds = countupSeconds
                 overtime = true
             } else {
+                totalTime = (4-countdownMinutes) * 60 + (60-countdownSeconds)+1
                 if countdownSeconds == 0 {
                     countdownMinutes -= 1
                     countdownSeconds = 59
