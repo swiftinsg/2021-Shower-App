@@ -13,6 +13,7 @@
 		3FD62E04273D522800B8DEF2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD62E03273D522800B8DEF2 /* ContentView.swift */; };
 		3FD62E06273D522C00B8DEF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FD62E05273D522C00B8DEF2 /* Assets.xcassets */; };
 		3FD62E09273D522C00B8DEF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FD62E08273D522C00B8DEF2 /* Preview Assets.xcassets */; };
+		3FEE5E35274219570018F497 /* Tips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEE5E34274219570018F497 /* Tips.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		3FD62E05273D522C00B8DEF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3FD62E08273D522C00B8DEF2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3FD62E0A273D522C00B8DEF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FEE5E34274219570018F497 /* Tips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tips.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				3FD62E01273D522800B8DEF2 /* Shower_AppApp.swift */,
 				3F78D51D2741F9E300F708BF /* Graph.swift */,
+				3FEE5E34274219570018F497 /* Tips.swift */,
 				3FD62E03273D522800B8DEF2 /* ContentView.swift */,
 				2E5187D2273FA24F00DA3F6E /* CircularProgressView.swift */,
 				3FD62E05273D522C00B8DEF2 /* Assets.xcassets */,
@@ -145,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F78D51E2741F9E300F708BF /* Graph.swift in Sources */,
+				3FEE5E35274219570018F497 /* Tips.swift in Sources */,
 				3FD62E04273D522800B8DEF2 /* ContentView.swift in Sources */,
 				2E5187D3273FA24F00DA3F6E /* CircularProgressView.swift in Sources */,
 				3FD62E02273D522800B8DEF2 /* Shower_AppApp.swift in Sources */,
