@@ -27,7 +27,7 @@ struct Tips: View {
     
     var body: some View {
         VStack {
-            Text("TIP💡")
+            Text("TIP 💡")
                 .font(.largeTitle)
                 .bold()
                 .multilineTextAlignment(.center)
