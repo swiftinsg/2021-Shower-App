@@ -144,6 +144,7 @@ struct ContentView: View {
                 totalTime = 5 * 60 + countupMinutes * 60 + countupSeconds
                 if countupSeconds == 59 {
                     countupMinutes += 1
+                    countupSeconds = 0
                 } else {
                     countupSeconds += 1
                 }
