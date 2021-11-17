@@ -37,19 +37,24 @@ struct ContentView: View {
     @State var restarted: Bool = false
     @State var overtime: Bool = false
     
-    @State private var isModalPresented = false
+    @State private var isModalTipsPresented = false
+    @State private var isModalGraphPresented = false
     
     @State var audioPlayer : AVAudioPlayer!
     
     var body: some View {
         VStack {
-            Button(action: {isModalPresented = true}, label: {
+            Button(action: {isModalTipsPresented.toggle()}, label: {
                 Text("\(Image(systemName: "lightbulb"))")
                     .font(.title)
                     .fontWeight(.bold)
-                    .foregroundColor(lightBlue)
+                    .foregroundColor(colorScheme == .dark ? lightBlue : darkBlue)
             })
             .padding(.leading, 300.0)
+            .sheet(isPresented: $isModalTipsPresented,
+                   content: {
+                    Tips(current_tip: Int.random(in: 0..<tips.count))
+                   })
             
             
             CircularProgressView(displayText: "\(displayMinutes):\(String(format: "%02d",displaySeconds ))", progress: CGFloat(displayMinutes * 60 + displaySeconds) / CGFloat(5 * 60), overtime: overtime)
@@ -92,21 +97,38 @@ struct ContentView: View {
                     .padding(.horizontal, 60.0)
                     .padding(.bottom, 60.0)
                 }
-                
-                Button(action:{
-                    startTimer()
-                })
-                {
-                    Text("START")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                }.padding(.horizontal, 140.0)
-                .padding()
-                .background(lightBlue)
-                .cornerRadius(30)
-                .padding()
-                
+                HStack {
+                    Button(action:{
+                        startTimer()
+                    })
+                    {
+                        Text("START")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                    }.padding(.horizontal, 90.0)
+                    .padding()
+                    .background(lightBlue)
+                    .cornerRadius(30)
+                    .padding()
+                    
+                    Button(action: {
+                        isModalGraphPresented.toggle()
+                    })
+                    {
+                        Text("\(Image(systemName: "chart.bar.fill"))")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                    }.padding()
+                    .background(colorScheme == .dark ? lightBlue : darkBlue)
+                    .cornerRadius(30)
+                    .padding()
+                    .sheet(isPresented: $isModalGraphPresented,
+                           content: {
+                            Graph()
+                           })
+                }
             } else {
                 Button(action:{
                     stopTimer()
@@ -114,19 +136,16 @@ struct ContentView: View {
                 {
                     Text("STOP")
                         .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .fontWeight(.bold)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                 }.padding(.horizontal, 140.0)
                 .padding()
                 .background(darkRed)
                 .cornerRadius(30)
                 .padding()
+                
             }
         }
-        .sheet(isPresented: $isModalPresented,
-                       content: {
-                        Tips(current_tip: Int.random(in: 0..<tips.count))
-                })
         .onAppear {
             let sound = Bundle.main.path(forResource: "alarm", ofType: "mp3")
             audioPlayer = try! AVAudioPlayer(contentsOf:URL(fileURLWithPath: sound!))
