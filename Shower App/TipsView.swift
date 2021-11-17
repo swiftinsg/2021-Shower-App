@@ -4,7 +4,6 @@
 //
 //  Created by Student on 15/11/21.
 //
-
 import SwiftUI
 var tips = ["It is recommended to shower between 5-10 minutes for each shower.",
             "Showering too much not only waste a lot of water, it will lead to dry skin and hair!",

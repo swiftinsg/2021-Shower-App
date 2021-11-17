@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import AVKit
 
 let darkBlue = Color(red: 0.3412, green: 0.3922, blue: 0.5647)
 let lightBlue = Color(red: 0.5961, green: 0.7412, blue: 0.7725)
@@ -37,6 +38,8 @@ struct ContentView: View {
     @State var overtime: Bool = false
     
     @State private var isModalPresented = false
+    
+    @State var audioPlayer : AVAudioPlayer!
     
     var body: some View {
         VStack {
@@ -124,6 +127,10 @@ struct ContentView: View {
                        content: {
                         Tips(current_tip: Int.random(in: 0..<tips.count))
                 })
+        .onAppear {
+            let sound = Bundle.main.path(forResource: "alarm", ofType: "mp3")
+            audioPlayer = try! AVAudioPlayer(contentsOf:URL(fileURLWithPath: sound!))
+        }
     }
     
     func startTimer(){
@@ -143,6 +150,7 @@ struct ContentView: View {
             if (countdownMinutes == 0 && countdownSeconds == 0) {
                 totalTime = 5 * 60 + countupMinutes * 60 + countupSeconds
                 if countupSeconds == 59 {
+                    audioPlayer.play()
                     countupMinutes += 1
                     countupSeconds = 0
                 } else {
@@ -161,8 +169,8 @@ struct ContentView: View {
                     countdownSeconds -= 1
                 }
                 
-                if countdownMinutes == 2 {
-                    print("beep")
+                if countdownMinutes == 2  {
+                    audioPlayer.play()
                 }
                 displayMinutes = countdownMinutes
                 displaySeconds = countdownSeconds
