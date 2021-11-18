@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2E2335182744B53200E20297 /* alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E2335172744B53200E20297 /* alarm.mp3 */; };
 		2E23351C2744BCF800E20297 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E23351B2744BCF800E20297 /* Time.swift */; };
+		2E36AAB22745F8A100CCD3DA /* TimeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E36AAB12745F8A100CCD3DA /* TimeData.swift */; };
 		2E5187D3273FA24F00DA3F6E /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5187D2273FA24F00DA3F6E /* CircularProgressView.swift */; };
 		3F78D51E2741F9E300F708BF /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F78D51D2741F9E300F708BF /* GraphView.swift */; };
 		3FD62E02273D522800B8DEF2 /* Shower_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD62E01273D522800B8DEF2 /* Shower_AppApp.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		2E2335172744B53200E20297 /* alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alarm.mp3; sourceTree = "<group>"; };
 		2E23351B2744BCF800E20297 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		2E36AAB12745F8A100CCD3DA /* TimeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeData.swift; sourceTree = "<group>"; };
 		2E5187D2273FA24F00DA3F6E /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		3F78D51D2741F9E300F708BF /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		3FD62DFE273D522800B8DEF2 /* Shower App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shower App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,7 @@
 				3FEE5E34274219570018F497 /* TipsView.swift */,
 				3FD62E03273D522800B8DEF2 /* ContentView.swift */,
 				2E23351B2744BCF800E20297 /* Time.swift */,
+				2E36AAB12745F8A100CCD3DA /* TimeData.swift */,
 				2E5187D2273FA24F00DA3F6E /* CircularProgressView.swift */,
 				3FD62E05273D522C00B8DEF2 /* Assets.xcassets */,
 				3FD62E0A273D522C00B8DEF2 /* Info.plist */,
@@ -158,6 +161,7 @@
 				3F78D51E2741F9E300F708BF /* GraphView.swift in Sources */,
 				3FEE5E35274219570018F497 /* TipsView.swift in Sources */,
 				3FD62E04273D522800B8DEF2 /* ContentView.swift in Sources */,
+				2E36AAB22745F8A100CCD3DA /* TimeData.swift in Sources */,
 				2E5187D3273FA24F00DA3F6E /* CircularProgressView.swift in Sources */,
 				3FD62E02273D522800B8DEF2 /* Shower_AppApp.swift in Sources */,
 			);

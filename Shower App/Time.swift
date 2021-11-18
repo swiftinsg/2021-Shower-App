@@ -1,13 +1,7 @@
-//
-//  Time.swift
-//  Shower App
-//
-//  Created by sap on 17/11/21.
-//
-
 import Foundation
+import SwiftUI
 
-struct Time: Identifiable {
+struct Time: Identifiable, Decodable, Encodable, Hashable {
     var id = UUID()
-    
+    var seconds : CGFloat
 }

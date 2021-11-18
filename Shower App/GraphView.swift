@@ -2,9 +2,7 @@ import SwiftUI
 
 struct Graph: View {
     @Environment(\.colorScheme) var colorScheme
-
-    @State var pickerSelection = 2
-    @State var barValues : [CGFloat] = [325,150,350,100,250,110,65]
+    @State var barValues : [Time]
     var body: some View {
             VStack{
                 Text("Graph of last 7 showers")
@@ -16,7 +14,7 @@ struct Graph: View {
 
                     ForEach(barValues, id: \.self){
                         data in
-                        BarView(value: data, cornerRadius: CGFloat(integerLiteral: 20))
+                        BarView(value: data.seconds, cornerRadius: CGFloat(integerLiteral: 20))
                     }
                 }.padding(.top, 10).animation(.default)
             }
@@ -48,6 +46,6 @@ struct BarView: View{
 
 struct Graph_Previews: PreviewProvider {
     static var previews: some View {
-        Graph()
+        Graph(barValues: [Time(seconds: 100),Time(seconds:200)])
     }
 }

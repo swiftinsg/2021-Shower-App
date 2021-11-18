@@ -17,6 +17,8 @@ let white = Color(white: 1)
 
 
 struct ContentView: View {
+    @Binding var times: [Time]
+    
     @Environment(\.colorScheme) var colorScheme
     @State var rate: String = "5"
     
@@ -106,11 +108,12 @@ struct ContentView: View {
                             .font(.title3)
                             .fontWeight(.bold)
                             .foregroundColor(colorScheme == .dark ? .white : .black)
-                    }.padding(.horizontal, 90.0)
-                    .padding()
-                    .background(lightBlue)
-                    .cornerRadius(30)
-                    .padding()
+                            .padding(.horizontal, 90.0)
+                            .padding()
+                            .background(lightBlue)
+                            .cornerRadius(30)
+                            .padding()
+                    }
                     
                     Button(action: {
                         isModalGraphPresented.toggle()
@@ -120,13 +123,14 @@ struct ContentView: View {
                             .font(.title3)
                             .fontWeight(.bold)
                             .foregroundColor(colorScheme == .dark ? .white : .black)
-                    }.padding()
-                    .background(colorScheme == .dark ? lightBlue : darkBlue)
-                    .cornerRadius(30)
-                    .padding()
+                            .padding()
+                            .background(colorScheme == .dark ? lightBlue : darkBlue)
+                            .cornerRadius(30)
+                            .padding()
+                    }
                     .sheet(isPresented: $isModalGraphPresented,
                            content: {
-                            Graph()
+                            Graph(barValues: times)
                            })
                 }
             } else {
@@ -138,11 +142,12 @@ struct ContentView: View {
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundColor(colorScheme == .dark ? .white : .black)
-                }.padding(.horizontal, 140.0)
-                .padding()
-                .background(darkRed)
-                .cornerRadius(30)
-                .padding()
+                        .padding(.horizontal, 140.0)
+                        .padding()
+                        .background(darkRed)
+                        .cornerRadius(30)
+                        .padding()
+                }
                 
             }
         }
@@ -206,11 +211,13 @@ struct ContentView: View {
         started = false
         timer?.invalidate()
         timer = nil
+        times.append(Time(seconds: CGFloat(totalTime)))
+        times = Array(times.suffix(7))
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(times: .constant([]))
     }
 }
