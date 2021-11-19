@@ -9,6 +9,7 @@ struct Graph: View {
                     .fontWeight(.bold)
                     .foregroundColor(colorScheme == .dark ? .white : .black)
                     .font(.largeTitle)
+                    .padding(.top, 35)
                 HStack(alignment: .center, spacing: 10)
                 {
 
@@ -46,6 +47,6 @@ struct BarView: View{
 
 struct Graph_Previews: PreviewProvider {
     static var previews: some View {
-        Graph(barValues: [Time(seconds: 100),Time(seconds:200)])
+        Graph(barValues: [Time(seconds: 100),Time(seconds:200), Time(seconds: 301)])
     }
 }

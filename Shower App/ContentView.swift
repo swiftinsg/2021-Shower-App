@@ -130,7 +130,10 @@ struct ContentView: View {
                     }
                     .sheet(isPresented: $isModalGraphPresented,
                            content: {
-                            Graph(barValues: times)
+                            VStack {
+                                Graph(barValues: times)
+                                WaterWaveView()
+                            }
                            })
                 }
             } else {
@@ -204,8 +207,6 @@ struct ContentView: View {
             }
         }
     }
-    
-    
     
     func stopTimer(){
         started = false
