@@ -95,6 +95,8 @@ struct ContentView: View {
                         Text("You spent \(Int(totalTime/60)):\(String(format: "%02d",Int(totalTime%60))) mins showering and used \(String(format: "%.2f", (CGFloat(Int(rate)! * totalTime)/60))) litres of water, that’s equal to")
                             .font(.title)
                             .fontWeight(.semibold)
+                            .padding()
+                        // SF symbol comparison
                     }
                     .padding(.horizontal, 60.0)
                     .padding(.bottom, 60.0)

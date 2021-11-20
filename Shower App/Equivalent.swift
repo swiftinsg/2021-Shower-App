@@ -12,5 +12,4 @@ struct Equivalent {
     var value : Int
 }
 
-var Equivalents = [Equivalent(name: "elephant", value: 5),
-                   Equivalent(name: "clothes", value: 10)]
+var Equivalents = [Equivalent(name: "drop.fill", value: 2)] // add correct value String: sfsymbol name value litres for that

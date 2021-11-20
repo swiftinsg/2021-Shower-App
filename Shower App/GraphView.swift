@@ -34,8 +34,8 @@ struct Graph: View {
                     }
                 }
                 
-            }.padding(.vertical, 60.0).animation(.default)
-        }
+            }.padding(.vertical, 20.0)
+        }.padding(.bottom,60.0)
     }
 }
 struct TimeBarView: View{
