@@ -71,7 +71,7 @@ struct WaterBarView: View{
                     .frame(width: 45, height: 500).foregroundColor(colorScheme == .dark ? .black : .white)
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .frame(width: 45, height: value * 5).foregroundColor(value > 40 ? darkRed : lightBlue)
-                Text("\(Int(value))")
+                Text("\(value,specifier: "%.1f")")
                     .fontWeight(.bold)
                     .foregroundColor(colorScheme == .dark ? .white : .black)
                     .padding(.bottom)
