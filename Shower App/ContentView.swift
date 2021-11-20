@@ -20,7 +20,7 @@ struct ContentView: View {
     @Binding var times: [Time]
     
     @Environment(\.colorScheme) var colorScheme
-    @State var rate: String = "5"
+    @AppStorage("rate", store: .standard) var rate = "7"
     
     @State var countupMinutes: Int = 0
     @State var countupSeconds: Int = 0
@@ -91,7 +91,7 @@ struct ContentView: View {
                     }.padding(.bottom, 60.0)
                     .padding(.horizontal, 80.0)
                 } else {
-                    HStack {
+                    VStack(alignment: .leading){
                         Text("You spent \(Int(totalTime/60)):\(String(format: "%02d",Int(totalTime%60))) mins showering and used \(String(format: "%.2f", (CGFloat(Int(rate)! * totalTime)/60))) litres of water, that’s equal to")
                             .font(.title)
                             .fontWeight(.semibold)
@@ -212,7 +212,7 @@ struct ContentView: View {
         started = false
         timer?.invalidate()
         timer = nil
-        times.append(Time(seconds: CGFloat(totalTime)))
+        times.append(Time(seconds: CGFloat(totalTime),water: CGFloat(Int(rate)! * totalTime)/60))
         times = Array(times.suffix(7))
     }
 }
