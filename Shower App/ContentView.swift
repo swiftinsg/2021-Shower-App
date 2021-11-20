@@ -46,6 +46,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            if !started {
             Button(action: {isModalTipsPresented.toggle()}, label: {
                 Text("\(Image(systemName: "lightbulb"))")
                     .font(.title)
@@ -57,6 +58,7 @@ struct ContentView: View {
                    content: {
                     Tips(current_tip: Int.random(in: 0..<tips.count))
                    })
+            }
             
             
             CircularProgressView(displayText: "\(displayMinutes):\(String(format: "%02d",displaySeconds ))", progress: CGFloat(displayMinutes * 60 + displaySeconds) / CGFloat(5 * 60), overtime: overtime)
