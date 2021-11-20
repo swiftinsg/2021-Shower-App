@@ -130,7 +130,7 @@ struct ContentView: View {
                     }
                     .sheet(isPresented: $isModalGraphPresented,
                            content: {
-                            VStack {
+                            ZStack {
                                 Graph(barValues: times)
                                 WaterWaveView()
                             }

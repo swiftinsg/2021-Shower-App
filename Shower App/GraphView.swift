@@ -17,7 +17,7 @@ struct Graph: View {
                         data in
                         BarView(value: data.seconds, cornerRadius: CGFloat(integerLiteral: 20))
                     }
-                }.padding(.top, 10).animation(.default)
+                }.padding(.vertical, 10).animation(.default)
             }
         }
 
