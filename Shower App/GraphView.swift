@@ -16,12 +16,11 @@ struct Graph: View {
                     ForEach(barValues, id: \.self){
                         data in
                         BarView(value: data.seconds, cornerRadius: CGFloat(integerLiteral: 20))
+                            .padding(.bottom, 20.0)
                     }
-                }.padding(.vertical, 10).animation(.default)
+                }.padding(.vertical, 60.0).animation(.default)
             }
         }
-
-
 }
 struct BarView: View{
     @Environment(\.colorScheme) var colorScheme
@@ -32,7 +31,7 @@ struct BarView: View{
         VStack {
             ZStack (alignment: .bottom) {
                 RoundedRectangle(cornerRadius: cornerRadius)
-                    .frame(width: 45, height: 600).foregroundColor(colorScheme == .dark ? .black : .white)
+                    .frame(width: 45, height: 500).foregroundColor(colorScheme == .dark ? .black : .white)
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .frame(width: 45, height: value).foregroundColor(value > 300 ? darkRed : lightBlue)
                 Text("\(Int(value/60)):\(String(format : "%02d", Int(value)%60))")
