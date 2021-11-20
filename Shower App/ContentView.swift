@@ -92,7 +92,7 @@ struct ContentView: View {
                     .padding(.horizontal, 80.0)
                 } else {
                     HStack {
-                        Text("You spent \(Int(totalTime/60)):\(String(format: "%02d",Int(totalTime%60))) mins showering and used \((Int(rate)! * totalTime)/60) litres of water, that’s equal to")
+                        Text("You spent \(Int(totalTime/60)):\(String(format: "%02d",Int(totalTime%60))) mins showering and used \(String(format: "%.2f", (CGFloat(Int(rate)! * totalTime)/60))) litres of water, that’s equal to")
                             .font(.title)
                             .fontWeight(.semibold)
                     }
