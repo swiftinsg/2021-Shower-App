@@ -39,6 +39,7 @@ struct ContentView: View {
     @State var restarted: Bool = false
     @State var overtime: Bool = false
     
+    @State var equivalentString = ""
     @State private var isModalTipsPresented = false
     @State private var isModalGraphPresented = false
     
@@ -64,7 +65,7 @@ struct ContentView: View {
             CircularProgressView(displayText: "\(displayMinutes):\(String(format: "%02d",displaySeconds ))", progress: CGFloat(displayMinutes * 60 + displaySeconds) / CGFloat(5 * 60), overtime: overtime)
                 .frame(width: 300, height: 300)
                 .padding(.all, 100.0)
-                .position(x:UIScreen.main.bounds.size.width/2,y: 250)
+                .position(x:UIScreen.main.bounds.size.width/2,y: 200)
             
             if !started {
                 
@@ -94,14 +95,13 @@ struct ContentView: View {
                     .padding(.horizontal, 80.0)
                 } else {
                     VStack(alignment: .leading){
-                        Text("You spent \(Int(totalTime/60)):\(String(format: "%02d",Int(totalTime%60))) mins showering and used \(String(format: "%.2f", (CGFloat(Int(rate)! * totalTime)/60))) litres of water, that’s equal to")
+                        Text("You spent \(Int(totalTime/60)):\(String(format: "%02d",Int(totalTime%60))) mins showering and used \(String(format: "%.2f", (CGFloat(Int(rate)! * totalTime)/60))) litres of water, that’s equal to drinking \(Int(rate)! * totalTime/15) cups of water")
                             .font(.title)
                             .fontWeight(.semibold)
                             .padding()
-                        // SF symbol comparison
                     }
                     .padding(.horizontal, 60.0)
-                    .padding(.bottom, 60.0)
+                    .padding(.bottom, 10.0)
                 }
                 HStack {
                     Button(action:{
@@ -219,6 +219,7 @@ struct ContentView: View {
         times.append(Time(seconds: CGFloat(totalTime),water: CGFloat(Int(rate)! * totalTime)/60))
         times = Array(times.suffix(7))
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
