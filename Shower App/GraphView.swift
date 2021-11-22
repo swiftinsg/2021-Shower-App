@@ -6,7 +6,7 @@ struct Graph: View {
     @State var barValues : [Time]
     var body: some View {
         VStack{
-            Text("Graph of last \(barValues.count) showers")
+            Text("Graph of Last \(barValues.count) Showers")
                 .fontWeight(.bold)
                 .foregroundColor(colorScheme == .dark ? .white : .black)
                 .font(.largeTitle)
