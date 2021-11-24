@@ -13,6 +13,9 @@ struct CircularProgressView: View {
     var displayText : String
     var progress: CGFloat
     var overtime: Bool
+    
+    var isTextHidden: Bool
+    
     var body: some View {
         ZStack {
             Circle()
@@ -21,10 +24,11 @@ struct CircularProgressView: View {
                 .stroke(lineWidth: 50)
                 .foregroundColor(colorScheme == .dark ? .black : .white)
             
-            Text(displayText)
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                
+            if !isTextHidden {
+                Text(displayText)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+            }
             
             Circle()
                 .trim(from: 0 , to: progress)
@@ -34,12 +38,13 @@ struct CircularProgressView: View {
                 .foregroundColor(overtime ?  darkRed : darkBlue )
                 .rotationEffect(Angle(degrees: 270))
         }
+        .padding(25)
     }
 }
 
 struct CircularProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        CircularProgressView(displayText: "3:00", progress: 0.8, overtime: true)
+        CircularProgressView(displayText: "3:00", progress: 0.8, overtime: true, isTextHidden: false)
             .frame(width: 300, height: 300)
     }
 }

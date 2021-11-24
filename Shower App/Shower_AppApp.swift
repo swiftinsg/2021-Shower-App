@@ -20,9 +20,9 @@ struct Shower_AppApp: App {
                 }
         }
         .onChange(of: scenePhase) { phase in
-                            if phase == .inactive {
-                                timeData.save()
-                            }
-                        }
+            if phase == .inactive {
+                timeData.save()
+            }
+        }
     }
 }

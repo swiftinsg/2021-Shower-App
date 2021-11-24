@@ -62,21 +62,20 @@ struct Tips: View {
     
     
     var body: some View {
-        VStack {
-            Text("TIP 💡")
-                .font(.largeTitle)
-                .bold()
-                .multilineTextAlignment(.center)
-                .padding()
-            
-            Text(tips[current_tip])
-                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                .bold()
-                .multilineTextAlignment(.center)
-                .padding(.all, 50)
-
+        NavigationView {
+            VStack {
+                HStack {
+                    Text(tips[current_tip])
+                        .font(.title)
+                        .bold()
+                        .multilineTextAlignment(.leading)
+                        .padding()
+                    Spacer()
+                }
+                Spacer()
+            }
+            .navigationTitle("Tip")
         }
-        
     }
 }
 

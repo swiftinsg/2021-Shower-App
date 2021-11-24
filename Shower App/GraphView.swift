@@ -6,36 +6,41 @@ struct Graph: View {
     @State var barValues : [Time]
     var body: some View {
         VStack{
-            Text("Graph of Last \(barValues.count) Showers")
-                .fontWeight(.bold)
-                .foregroundColor(colorScheme == .dark ? .white : .black)
-                .font(.largeTitle)
-                .padding(.top, 35)
+            HStack {
+                Text("Graph of Last \(barValues.count) Showers")
+                    .fontWeight(.bold)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                    .font(.largeTitle)
+                    .padding()
+                Spacer()
+            }
             
             Picker(selection: $pickerSelection, label: Text("Stats"))
             {
                 Text("Time").tag(0)
                 Text("Water").tag(1)
-            }.pickerStyle(SegmentedPickerStyle())
-            .padding(.horizontal, 80)
-            HStack(alignment: .center, spacing: 10)
-            {
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal)
+            HStack(alignment: .center, spacing: 10) {
                 if pickerSelection == 0 {
                     ForEach(barValues, id: \.self){
                         data in
                         TimeBarView(value: data.seconds, cornerRadius: CGFloat(integerLiteral: 20))
-                            .padding(.bottom, 20.0)
+                            .padding(.bottom)
                     }
                 } else {
                     ForEach(barValues, id: \.self){
                         data in
                         WaterBarView(value: data.water, cornerRadius: CGFloat(integerLiteral: 20))
-                            .padding(.bottom, 20.0)
+                            .padding(.bottom)
                     }
                 }
                 
-            }.padding(.vertical, 20.0)
-        }.padding(.bottom,60.0)
+            }
+            
+            Spacer()
+        }
     }
 }
 struct TimeBarView: View{
@@ -44,17 +49,23 @@ struct TimeBarView: View{
     var cornerRadius: CGFloat
     @ State private var hovering : Bool = false
     var body: some View {
-        VStack {
-            ZStack (alignment: .bottom) {
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .frame(width: 45, height: 500).foregroundColor(colorScheme == .dark ? .black : .white)
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .frame(width: 45, height: value).foregroundColor(value > 300 ? darkRed : lightBlue)
-                Text("\(Int(value/60)):\(String(format : "%02d", Int(value)%60))")
-                    .fontWeight(.bold)
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                    .padding(.bottom)
-            }.padding(.bottom, 8)
+        GeometryReader { reader in
+            HStack(alignment: .center) {
+                Spacer()
+                ZStack (alignment: .bottom) {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .frame(width: 45, height: reader.size.height)
+                        .foregroundColor(colorScheme == .dark ? .black : .white)
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .frame(width: 45, height: value / 500 * reader.size.height)
+                        .foregroundColor(value > 300 ? darkRed : lightBlue)
+                    Text("\(Int(value/60)):\(String(format : "%02d", Int(value)%60))")
+                        .fontWeight(.bold)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .padding(.bottom)
+                }.padding(.bottom, 8)
+                Spacer()
+            }
         }
     }
 }
@@ -65,17 +76,23 @@ struct WaterBarView: View{
     var cornerRadius: CGFloat
     @ State private var hovering : Bool = false
     var body: some View {
-        VStack {
-            ZStack (alignment: .bottom) {
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .frame(width: 45, height: 500).foregroundColor(colorScheme == .dark ? .black : .white)
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .frame(width: 45, height: value * 5).foregroundColor(value > 40 ? darkRed : lightBlue)
-                Text("\(value,specifier: "%.1f")")
-                    .fontWeight(.bold)
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                    .padding(.bottom)
-            }.padding(.bottom, 8)
+        GeometryReader { reader in
+            HStack {
+                Spacer()
+                ZStack (alignment: .bottom) {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .frame(width: 45, height: reader.size.height)
+                        .foregroundColor(colorScheme == .dark ? .black : .white)
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .frame(width: 45, height: value * 5 / 500 * reader.size.height)
+                        .foregroundColor(value > 40 ? darkRed : lightBlue)
+                    Text("\(value,specifier: "%.1f")")
+                        .fontWeight(.bold)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .padding(.bottom)
+                }.padding(.bottom, 8)
+                Spacer()
+            }
         }
     }
 }

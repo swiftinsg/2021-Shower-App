@@ -46,116 +46,128 @@ struct ContentView: View {
     @State var audioPlayer : AVAudioPlayer!
     
     var body: some View {
-        VStack {
-            if !started {
-            Button(action: {isModalTipsPresented.toggle()}, label: {
-                Text("\(Image(systemName: "lightbulb"))")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(colorScheme == .dark ? lightBlue : darkBlue)
-            })
-            .padding(.leading, 300.0)
-            .sheet(isPresented: $isModalTipsPresented,
-                   content: {
-                    Tips(current_tip: Int.random(in: 0..<tips.count))
-                   })
-            }
-            
-            
-            CircularProgressView(displayText: "\(displayMinutes):\(String(format: "%02d",displaySeconds ))", progress: CGFloat(displayMinutes * 60 + displaySeconds) / CGFloat(5 * 60), overtime: overtime)
-                .frame(width: 300, height: 300)
-                .padding(.all, 100.0)
-                .position(x:UIScreen.main.bounds.size.width/2,y: 200)
-            
-            if !started {
-                
-                if !restarted {
-                    HStack {
-                        TextField("",text: $rate)
-                            .font(Font.system(size: 20))
-                            .padding(.all, 15.0)
-                            .background(RoundedRectangle(cornerRadius: 20).fill(steelGray.opacity(0.8)))
-                            .foregroundColor(.black)
-                            .padding(.all, 10.0)
-                            .keyboardType(.numberPad)
-                            .onReceive(Just(rate)) { newValue in
-                                let filtered = newValue.filter { "0123456789".contains($0) }
-                                if filtered != newValue {
-                                    self.rate = filtered
-                                }
-                                
-                            }
-                        Text("litres / min")
-                            .font(.title2)
-                            .fontWeight(.medium)
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(nil)
-                        
-                    }.padding(.bottom, 60.0)
-                    .padding(.horizontal, 80.0)
-                } else {
-                    VStack(alignment: .leading){
-                        Text("You spent \(Int(totalTime/60)):\(String(format: "%02d",Int(totalTime%60))) mins showering and used \(String(format: "%.2f", (CGFloat(Int(rate)! * totalTime)/60))) litres of water, that’s equal to drinking \(Int(rate)! * totalTime/15) cups of water")
-                            .font(.title)
-                            .fontWeight(.semibold)
-                            .padding()
-                    }
-                    .padding(.horizontal, 60.0)
-                    .padding(.bottom, 10.0)
+        ZStack {
+            Color(.systemBackground)
+                .onTapGesture {
+                    hideKeyboard()
                 }
-                HStack {
-                    Button(action:{
-                        startTimer()
-                    })
-                    {
-                        Text("START")
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .foregroundColor(colorScheme == .dark ? .white : .black)
-                            .padding(.horizontal, 90.0)
-                            .padding()
-                            .background(lightBlue)
-                            .cornerRadius(30)
-                            .padding()
+            
+            VStack {
+                if !started {
+                    HStack {
+                        Spacer()
+                        Button(action: {isModalTipsPresented.toggle()}, label: {
+                            Text("\(Image(systemName: "lightbulb"))")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(colorScheme == .dark ? lightBlue : darkBlue)
+                                .padding()
+                        })
+                            .sheet(isPresented: $isModalTipsPresented,
+                                   content: {
+                                Tips(current_tip: Int.random(in: 0..<tips.count))
+                            })
                     }
+                }
+                
+                
+                CircularProgressView(displayText: "\(displayMinutes):\(String(format: "%02d",displaySeconds ))", progress: CGFloat(displayMinutes * 60 + displaySeconds) / CGFloat(5 * 60), overtime: overtime, isTextHidden: restarted && !started)
+                    .padding()
+                
+                if !started {
                     
-                    Button(action: {
-                        isModalGraphPresented.toggle()
-                    })
-                    {
-                        Text("\(Image(systemName: "chart.bar.fill"))")
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .foregroundColor(colorScheme == .dark ? .white : .black)
-                            .padding()
-                            .background(colorScheme == .dark ? lightBlue : darkBlue)
-                            .cornerRadius(30)
-                            .padding()
+                    if !restarted {
+                        HStack {
+                            TextField("",text: $rate)
+                                .font(Font.system(size: 20))
+                                .padding(.all, 15.0)
+                                .background(RoundedRectangle(cornerRadius: 16).fill(steelGray.opacity(0.1)))
+                                .foregroundColor(.black)
+                                .keyboardType(.numberPad)
+                                .onReceive(Just(rate)) { newValue in
+                                    let filtered = newValue.filter { "0123456789".contains($0) }
+                                    if filtered != newValue {
+                                        self.rate = filtered
+                                    }
+                                }
+                            Text("litres / min")
+                                .font(.title2)
+                                .fontWeight(.medium)
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(nil)
+                        }
+                        .padding(.horizontal)
+                        
+                    } else {
+                        HStack {
+                            ScrollView {
+                                Text("You spent \(Int(totalTime/60))m \(String(format: "%02d",Int(totalTime%60)))s showering and used \(String(format: "%.2f", (CGFloat(Int(rate)! * totalTime)/60))) litres of water, that’s equal to drinking \(Int(rate)! * totalTime/15) cups of water")
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                            }
+                            
+                            Spacer()
+                        }
+                        .padding(.horizontal)
+                        .padding(.bottom, 10.0)
                     }
-                    .sheet(isPresented: $isModalGraphPresented,
-                           content: {
+                    HStack {
+                        Button(action:{
+                            withAnimation {
+                                startTimer()
+                            }
+                        })
+                        {
+                            Text("START")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(lightBlue)
+                                .cornerRadius(30)
+                        }
+                        
+                        Button(action: {
+                            isModalGraphPresented.toggle()
+                        })
+                        {
+                            Text("\(Image(systemName: "chart.bar.fill"))")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(colorScheme == .dark ? lightBlue : darkBlue)
+                                .cornerRadius(30)
+                        }
+                        .sheet(isPresented: $isModalGraphPresented,
+                               content: {
                             ZStack {
                                 Graph(barValues: times)
                                 WaterWaveView()
                             }
-                           })
+                        })
+                    }
+                    .padding()
+                } else {
+                    Button(action:{
+                        withAnimation {
+                            stopTimer()
+                        }
+                    })
+                    {
+                        Text("STOP")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(darkRed)
+                            .cornerRadius(30)
+                            .padding()
+                    }
+                    
                 }
-            } else {
-                Button(action:{
-                    stopTimer()
-                })
-                {
-                    Text("STOP")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .padding(.horizontal, 140.0)
-                        .padding()
-                        .background(darkRed)
-                        .cornerRadius(30)
-                        .padding()
-                }
-                
             }
         }
         .onAppear {
@@ -178,36 +190,38 @@ struct ContentView: View {
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true)
         { tempTimer in
-            if (countdownMinutes == 0 && countdownSeconds == 0) {
-                totalTime = 5 * 60 + countupMinutes * 60 + countupSeconds
-                if countupSeconds == 59 {
-                    audioPlayer.play()
-                    countupMinutes += 1
+            withAnimation {
+                if (countdownMinutes == 0 && countdownSeconds == 0) {
+                    totalTime = 5 * 60 + countupMinutes * 60 + countupSeconds
+                    if countupSeconds == 59 {
+                        audioPlayer.play()
+                        countupMinutes += 1
+                        countupSeconds = 0
+                    } else {
+                        countupSeconds += 1
+                    }
+                    
+                    displayMinutes = countupMinutes
+                    displaySeconds = countupSeconds
+                    overtime = true
+                } else {
+                    totalTime = (4-countdownMinutes) * 60 + (60-countdownSeconds)+1
+                    if countdownSeconds == 0 {
+                        countdownMinutes -= 1
+                        countdownSeconds = 59
+                    } else {
+                        countdownSeconds -= 1
+                    }
+                    
+                    if countdownMinutes == 2  {
+                        audioPlayer.play()
+                    }
+                    displayMinutes = countdownMinutes
+                    displaySeconds = countdownSeconds
                     countupSeconds = 0
-                } else {
-                    countupSeconds += 1
+                    countupMinutes = 0
+                    overtime = false
                 }
-                
-                displayMinutes = countupMinutes
-                displaySeconds = countupSeconds
-                overtime = true
-            } else {
-                totalTime = (4-countdownMinutes) * 60 + (60-countdownSeconds)+1
-                if countdownSeconds == 0 {
-                    countdownMinutes -= 1
-                    countdownSeconds = 59
-                } else {
-                    countdownSeconds -= 1
-                }
-                
-                if countdownMinutes == 2  {
-                    audioPlayer.play()
-                }
-                displayMinutes = countdownMinutes
-                displaySeconds = countdownSeconds
-                countupSeconds = 0
-                countupMinutes = 0
-                overtime = false
             }
         }
     }
@@ -225,5 +239,11 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(times: .constant([]))
+    }
+}
+
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
